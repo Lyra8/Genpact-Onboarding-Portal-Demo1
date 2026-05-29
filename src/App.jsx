@@ -20,29 +20,39 @@ function App() {
   });
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadOnboardingData() {
       const requests = [
         { key: "tools", load: fetchTools, update: setTools },
         { key: "courses", load: fetchCourses, update: setCourses },
-        { key: "contacts", load: fetchContacts, update: setContacts }
+        { key: "contacts", load: fetchContacts, update: setContacts },
       ];
 
-      requests.forEach(async ({ key, load, update }) => {
-        try {
+      const results = await Promise.allSettled(
+        requests.map(async ({ key, load, update }) => {
           const data = await load();
+          if (cancelled) return;
           update(data);
-        } catch (error) {
-          setErrorState((current) => ({
-            ...current,
-            [key]: error.message || "Unable to load this section."
+          setLoadingState((prev) => ({ ...prev, [key]: false }));
+        })
+      );
+
+      for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+        const key = requests[i].key;
+        if (result.status === "rejected" && !cancelled) {
+          setErrorState((prev) => ({
+            ...prev,
+            [key]: result.reason?.message || "Unable to load this section.",
           }));
-        } finally {
-          setLoadingState((current) => ({ ...current, [key]: false }));
+          setLoadingState((prev) => ({ ...prev, [key]: false }));
         }
-      });
+      }
     }
 
     loadOnboardingData();
+    return () => { cancelled = true; };
   }, []);
 
   return (

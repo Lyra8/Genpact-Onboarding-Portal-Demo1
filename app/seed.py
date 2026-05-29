@@ -40,6 +40,7 @@ def seed() -> None:
         Contact(name="Anita Desai", role=ContactRole.IT_SUPPORT, department="Global IT Service Desk", email="anita.desai@genpact.com", phone="+91-9876543212", is_primary=True, display_order=3),
         Contact(name="Michael Chen", role=ContactRole.MANAGER, department="Digital Transformation", email="michael.chen@genpact.com", phone="+65-91234567", is_primary=False, display_order=4),
         Contact(name="Sneha Patel", role=ContactRole.BUDDY, department="Digital Transformation", email="sneha.patel@genpact.com", phone="+91-9876543214", is_primary=False, display_order=5),
+        Contact(name="Edona Xhemajli", role=ContactRole.HR_SUPPORT, department="Data Engineer", email="edona.xhemajli1234@genpact.com", phone="+91-9876543221", is_primary=False, display_order=6),
     ]
 
     with Session(_get_engine()) as session:

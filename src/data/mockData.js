@@ -124,5 +124,15 @@ export const mockContacts = [
     phone: "+1 555 0104",
     is_primary: false,
     display_order: 4
+  },
+  {
+    id: "mock-contact-5",
+    name: "Edona Xhemajli",
+    role: "HR Support",
+    department: "Human Resources — APAC",
+    email: "edona.xhemajli1234@genpact.com",
+    phone: "+91-9876543221",
+    is_primary: false,
+    display_order: 5
   }
 ];
