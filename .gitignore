@@ -1,3 +1,8 @@
-<<<<<<< HEAD
-=======
->>>>>>> 13fb67b5dafb0c2df37453dd22fb5e10035544e0
+node_modules/
+dist/
+.env
+
+__pycache__/
+*.pyc
+venv/
+.venv/
