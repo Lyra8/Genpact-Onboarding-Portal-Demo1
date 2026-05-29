@@ -5,6 +5,7 @@
 .tools-list {
   display: grid;
   gap: 14px;
+  margin-top: 16px;
 }
 
 .tool-item {

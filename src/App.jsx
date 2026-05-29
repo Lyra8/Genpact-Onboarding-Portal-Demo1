@@ -8,20 +8,38 @@ function App() {
   const [tools, setTools] = useState([]);
   const [courses, setCourses] = useState([]);
   const [contacts, setContacts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingState, setLoadingState] = useState({
+    tools: true,
+    courses: true,
+    contacts: true
+  });
+  const [errorState, setErrorState] = useState({
+    tools: "",
+    courses: "",
+    contacts: ""
+  });
 
   useEffect(() => {
     async function loadOnboardingData() {
-      const [toolsData, coursesData, contactsData] = await Promise.all([
-        fetchTools(),
-        fetchCourses(),
-        fetchContacts()
-      ]);
+      const requests = [
+        { key: "tools", load: fetchTools, update: setTools },
+        { key: "courses", load: fetchCourses, update: setCourses },
+        { key: "contacts", load: fetchContacts, update: setContacts }
+      ];
 
-      setTools(toolsData);
-      setCourses(coursesData);
-      setContacts(contactsData);
-      setIsLoading(false);
+      requests.forEach(async ({ key, load, update }) => {
+        try {
+          const data = await load();
+          update(data);
+        } catch (error) {
+          setErrorState((current) => ({
+            ...current,
+            [key]: error.message || "Unable to load this section."
+          }));
+        } finally {
+          setLoadingState((current) => ({ ...current, [key]: false }));
+        }
+      });
     }
 
     loadOnboardingData();
@@ -44,15 +62,23 @@ function App() {
         </div>
       </header>
 
-      {isLoading ? (
-        <section className="loading-panel">Loading onboarding resources...</section>
-      ) : (
-        <div className="dashboard-grid">
-          <ToolsList tools={tools} />
-          <TrainingDashboard courses={courses} />
-          <ContactDirectory contacts={contacts} />
-        </div>
-      )}
+      <div className="dashboard-grid">
+        <ToolsList
+          tools={tools}
+          isLoading={loadingState.tools}
+          error={errorState.tools}
+        />
+        <TrainingDashboard
+          courses={courses}
+          isLoading={loadingState.courses}
+          error={errorState.courses}
+        />
+        <ContactDirectory
+          contacts={contacts}
+          isLoading={loadingState.contacts}
+          error={errorState.contacts}
+        />
+      </div>
     </main>
   );
 }

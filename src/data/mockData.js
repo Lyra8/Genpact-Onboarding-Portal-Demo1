@@ -1,120 +1,128 @@
 export const mockTools = [
   {
-    id: 1,
+    id: "mock-tool-1",
     name: "Microsoft Teams",
+    description: "Enterprise chat, calling, and video meetings platform",
     category: "Communication",
-    requirement: "Required for all interns",
-    guideUrl: "https://www.microsoft.com/microsoft-teams/download-app",
-    status: "Required",
-    estimatedTime: "10 min"
+    download_url: "https://teams.microsoft.com/downloads",
+    is_required: true,
+    display_order: 1
   },
   {
-    id: 2,
+    id: "mock-tool-2",
     name: "Outlook",
+    description: "Email, calendar, and meeting scheduling for Genpact interns",
     category: "Email and Calendar",
-    requirement: "Configure Genpact account and calendar",
-    guideUrl: "https://support.microsoft.com/outlook",
-    status: "Required",
-    estimatedTime: "15 min"
+    download_url: "https://support.microsoft.com/outlook",
+    is_required: true,
+    display_order: 2
   },
   {
-    id: 3,
+    id: "mock-tool-3",
     name: "VPN Client",
+    description: "Secure access tool for internal Genpact systems",
     category: "Secure Access",
-    requirement: "Needed for internal systems access",
-    guideUrl: "#",
-    status: "Required",
-    estimatedTime: "20 min"
+    download_url: "#",
+    is_required: true,
+    display_order: 3
   },
   {
-    id: 4,
+    id: "mock-tool-4",
     name: "VS Code",
+    description: "Code editor recommended for technical onboarding tasks",
     category: "Developer Tools",
-    requirement: "Recommended for technical interns",
-    guideUrl: "https://code.visualstudio.com/download",
-    status: "Recommended",
-    estimatedTime: "10 min"
+    download_url: "https://code.visualstudio.com/download",
+    is_required: false,
+    display_order: 4
   }
 ];
 
 export const mockCourses = [
   {
-    id: 101,
-    title: "Genpact Culture and Values",
-    provider: "Genpact Learning",
-    dueDate: "Friday, Week 1",
-    duration: "45 min",
-    progress: 100,
-    status: "Completed"
+    id: "mock-course-1",
+    title: "Genpact Code of Conduct",
+    description: "Core ethical standards and professional conduct expectations.",
+    category: "Compliance",
+    duration_minutes: 45,
+    is_mandatory: true,
+    week_number: 1,
+    content_url: null,
+    display_order: 1
   },
   {
-    id: 102,
+    id: "mock-course-2",
     title: "Information Security Basics",
-    provider: "Compliance Academy",
-    dueDate: "Wednesday, Week 1",
-    duration: "60 min",
-    progress: 65,
-    status: "In Progress"
+    description: "Foundational guidance for protecting company systems and data.",
+    category: "Security",
+    duration_minutes: 60,
+    is_mandatory: true,
+    week_number: 1,
+    content_url: null,
+    display_order: 2
   },
   {
-    id: 103,
+    id: "mock-course-3",
     title: "Data Privacy and Responsible AI",
-    provider: "Risk and Compliance",
-    dueDate: "Friday, Week 1",
-    duration: "50 min",
-    progress: 25,
-    status: "In Progress"
+    description: "Privacy principles and responsible use of AI in client work.",
+    category: "Risk and Compliance",
+    duration_minutes: 50,
+    is_mandatory: true,
+    week_number: 1,
+    content_url: null,
+    display_order: 3
   },
   {
-    id: 104,
+    id: "mock-course-4",
     title: "Workplace Health and Safety",
-    provider: "People Operations",
-    dueDate: "Friday, Week 1",
-    duration: "30 min",
-    progress: 0,
-    status: "Not Started"
+    description: "Essential workplace safety and wellbeing practices.",
+    category: "People Operations",
+    duration_minutes: 30,
+    is_mandatory: true,
+    week_number: 1,
+    content_url: null,
+    display_order: 4
   }
 ];
 
 export const mockContacts = [
   {
-    id: 201,
+    id: "mock-contact-1",
     name: "Priya Sharma",
-    role: "Intern Program Manager",
-    team: "People Operations",
-    email: "priya.sharma@genpact.example",
-    phone: "+1 555 0101",
-    location: "New York",
-    tags: ["program", "policy", "schedule"]
+    role: "Mentor",
+    department: "Digital Transformation",
+    email: "priya.sharma@genpact.com",
+    phone: "+91-9876543210",
+    is_primary: true,
+    display_order: 1
   },
   {
-    id: 202,
+    id: "mock-contact-2",
     name: "Alex Morgan",
     role: "Technology Support Lead",
-    team: "IT Support",
-    email: "alex.morgan@genpact.example",
+    department: "IT Support",
+    email: "alex.morgan@genpact.com",
     phone: "+1 555 0102",
-    location: "Remote",
-    tags: ["laptop", "vpn", "access"]
+    is_primary: true,
+    display_order: 2
   },
   {
-    id: 203,
+    id: "mock-contact-3",
     name: "Maya Chen",
     role: "Analytics Mentor",
-    team: "Data and AI",
-    email: "maya.chen@genpact.example",
+    department: "Data and AI",
+    email: "maya.chen@genpact.com",
     phone: "+1 555 0103",
-    location: "Chicago",
-    tags: ["mentor", "analytics", "projects"]
+    is_primary: false,
+    display_order: 3
   },
   {
-    id: 204,
+    id: "mock-contact-4",
     name: "Daniel Rivera",
     role: "Engineering Mentor",
-    team: "Digital Engineering",
-    email: "daniel.rivera@genpact.example",
+    department: "Digital Engineering",
+    email: "daniel.rivera@genpact.com",
     phone: "+1 555 0104",
-    location: "Dallas",
-    tags: ["mentor", "frontend", "backend"]
+    is_primary: false,
+    display_order: 4
   }
 ];

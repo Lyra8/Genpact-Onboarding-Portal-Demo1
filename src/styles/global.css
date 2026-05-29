@@ -28,6 +28,10 @@ input {
   transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 
+select {
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
 .app-shell {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
@@ -151,6 +155,44 @@ input {
   color: var(--text-muted);
   font-weight: 700;
   text-align: center;
+}
+
+.filter-field {
+  display: grid;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.filter-field select {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: var(--text-strong);
+  font: inherit;
+}
+
+.filter-field select:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.12);
+  outline: none;
+}
+
+.section-message {
+  margin: 16px 0 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #eef6ff;
+  color: var(--brand-blue);
+  font-weight: 700;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 @media (max-width: 760px) {

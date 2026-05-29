@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import "./ContactDirectory.css";
 
-function ContactDirectory({ contacts }) {
+function ContactDirectory({ contacts, isLoading, error }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredContacts = useMemo(() => {
@@ -15,9 +15,8 @@ function ContactDirectory({ contacts }) {
       const searchableText = [
         contact.name,
         contact.role,
-        contact.team,
-        contact.location,
-        ...contact.tags
+        contact.department,
+        contact.email
       ]
         .join(" ")
         .toLowerCase();
@@ -39,44 +38,44 @@ function ContactDirectory({ contacts }) {
             type="search"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search by name, role, team, or topic"
+            placeholder="Search by name, role, department, or email"
           />
         </label>
       </div>
 
+      {isLoading && <p className="section-message">Loading contacts...</p>}
+      {error && <p className="section-message error-message">{error}</p>}
+
       <div className="contacts-grid">
-        {filteredContacts.map((contact) => (
-          <article className="contact-card" key={contact.id}>
-            <div className="contact-avatar" aria-hidden="true">
-              {contact.name
-                .split(" ")
-                .map((part) => part[0])
-                .join("")}
-            </div>
-
-            <div className="contact-content">
-              <h3>{contact.name}</h3>
-              <p className="contact-role">{contact.role}</p>
-              <p className="contact-meta">
-                {contact.team} • {contact.location}
-              </p>
-
-              <div className="contact-actions">
-                <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+        {!isLoading &&
+          !error &&
+          filteredContacts.map((contact) => (
+            <article className="contact-card" key={contact.id}>
+              <div className="contact-avatar" aria-hidden="true">
+                {contact.name
+                  .split(" ")
+                  .map((part) => part[0])
+                  .join("")}
               </div>
 
-              <div className="tag-list">
-                {contact.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
+              <div className="contact-content">
+                <div className="contact-name-row">
+                  <h3>{contact.name}</h3>
+                  {contact.is_primary && <span className="primary-badge">Primary</span>}
+                </div>
+                <p className="contact-role">{contact.role}</p>
+                <p className="contact-meta">{contact.department}</p>
+
+                <div className="contact-actions">
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                  <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
       </div>
 
-      {filteredContacts.length === 0 && (
+      {!isLoading && !error && filteredContacts.length === 0 && (
         <p className="empty-state">No contacts match your search.</p>
       )}
     </section>
