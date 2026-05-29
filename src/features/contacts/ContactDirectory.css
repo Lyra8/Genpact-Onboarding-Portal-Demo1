@@ -1,0 +1,131 @@
+.contacts-section {
+  grid-column: span 12;
+}
+
+.contacts-heading {
+  align-items: flex-end;
+}
+
+.search-field {
+  display: grid;
+  gap: 6px;
+  min-width: min(360px, 100%);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.search-field input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: var(--text-strong);
+  font: inherit;
+}
+
+.search-field input:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.12);
+  outline: none;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contact-card {
+  display: flex;
+  gap: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface-muted);
+}
+
+.contact-avatar {
+  display: grid;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--brand-blue);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.contact-content {
+  min-width: 0;
+}
+
+.contact-content h3 {
+  margin: 0 0 4px;
+  color: var(--text-strong);
+  font-size: 1rem;
+}
+
+.contact-role,
+.contact-meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.contact-role {
+  color: var(--text-strong);
+  font-weight: 700;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 12px 0;
+  font-size: 0.86rem;
+}
+
+.contact-actions a {
+  color: var(--brand-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact-actions a:hover {
+  text-decoration: underline;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-list span {
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: #ffffff;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.empty-state {
+  margin: 20px 0 0;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .contacts-heading {
+    align-items: stretch;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+}
