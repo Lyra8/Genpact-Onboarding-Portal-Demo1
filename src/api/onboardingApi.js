@@ -2,23 +2,36 @@ import { mockContacts, mockCourses, mockTools } from "../data/mockData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
+function safeFallback(endpoint, fallbackData, reason) {
+  console.warn(`Using mock data for ${endpoint}: ${reason}`);
+  return Array.isArray(fallbackData) ? fallbackData : [];
+}
+
 async function getFromApi(endpoint, fallbackData) {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`);
 
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      return safeFallback(
+        endpoint,
+        fallbackData,
+        `backend returned ${response.status}`
+      );
     }
 
     const result = await response.json();
-    return Array.isArray(result.data) ? result.data : [];
-  } catch (error) {
-    if (error instanceof TypeError) {
-      console.warn(`Backend offline. Using mock data for ${endpoint}:`, error.message);
-      return fallbackData;
+
+    if (!Array.isArray(result?.data)) {
+      return safeFallback(endpoint, fallbackData, "response data was not an array");
     }
 
-    throw error;
+    return result.data;
+  } catch (error) {
+    return safeFallback(
+      endpoint,
+      fallbackData,
+      error.message || "backend is unavailable"
+    );
   }
 }
 
@@ -35,11 +48,17 @@ export function fetchContacts() {
 }
 
 export async function fetchHealth() {
-  const response = await fetch(`${API_BASE_URL}/api/health`);
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/health`);
 
-  if (!response.ok) {
-    throw new Error(`Health check failed with status ${response.status}`);
+    if (!response.ok) {
+      console.warn(`Health check failed with status ${response.status}`);
+      return { status: "offline" };
+    }
+
+    return response.json();
+  } catch (error) {
+    console.warn("Health check unavailable:", error.message);
+    return { status: "offline" };
   }
-
-  return response.json();
 }

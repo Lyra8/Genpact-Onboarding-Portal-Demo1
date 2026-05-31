@@ -30,12 +30,14 @@ function App() {
       requests.forEach(async ({ key, load, update }) => {
         try {
           const data = await load();
-          update(data);
+          update(Array.isArray(data) ? data : []);
         } catch (error) {
+          console.warn(`Unable to load ${key}. Showing an empty section.`, error);
           setErrorState((current) => ({
             ...current,
             [key]: error.message || "Unable to load this section."
           }));
+          update([]);
         } finally {
           setLoadingState((current) => ({ ...current, [key]: false }));
         }
