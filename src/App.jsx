@@ -11,12 +11,12 @@ function App() {
   const [loadingState, setLoadingState] = useState({
     tools: true,
     courses: true,
-    contacts: true
+    contacts: true,
   });
   const [errorState, setErrorState] = useState({
     tools: "",
     courses: "",
-    contacts: ""
+    contacts: "",
   });
 
   useEffect(() => {
@@ -29,25 +29,30 @@ function App() {
         { key: "contacts", load: fetchContacts, update: setContacts },
       ];
 
-      const results = await Promise.allSettled(
-        requests.map(async ({ key, load, update }) => {
+      requests.forEach(async ({ key, load, update }) => {
+        try {
           const data = await load();
           update(Array.isArray(data) ? data : []);
         } catch (error) {
-          console.warn(`Unable to load ${key}. Showing an empty section.`, error);
+          console.warn(
+            `Unable to load ${key}. Showing an empty section.`,
+            error,
+          );
           setErrorState((current) => ({
             ...current,
-            [key]: error.message || "Unable to load this section."
+            [key]: error.message || "Unable to load this section.",
           }));
           update([]);
         } finally {
           setLoadingState((current) => ({ ...current, [key]: false }));
         }
-      }
+      });
     }
 
     loadOnboardingData();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -60,10 +65,6 @@ function App() {
             Your Week 1 launch hub for required tools, mandatory learning, and
             the people who can help you get started.
           </p>
-        </div>
-        <div className="header-status" aria-label="Sprint status">
-          <span>Sprint 1 UI</span>
-          <strong>Demo Ready</strong>
         </div>
       </header>
 
