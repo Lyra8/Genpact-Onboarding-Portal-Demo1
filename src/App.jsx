@@ -20,15 +20,17 @@ function App() {
   });
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadOnboardingData() {
       const requests = [
         { key: "tools", load: fetchTools, update: setTools },
         { key: "courses", load: fetchCourses, update: setCourses },
-        { key: "contacts", load: fetchContacts, update: setContacts }
+        { key: "contacts", load: fetchContacts, update: setContacts },
       ];
 
-      requests.forEach(async ({ key, load, update }) => {
-        try {
+      const results = await Promise.allSettled(
+        requests.map(async ({ key, load, update }) => {
           const data = await load();
           update(Array.isArray(data) ? data : []);
         } catch (error) {
@@ -41,10 +43,11 @@ function App() {
         } finally {
           setLoadingState((current) => ({ ...current, [key]: false }));
         }
-      });
+      }
     }
 
     loadOnboardingData();
+    return () => { cancelled = true; };
   }, []);
 
   return (

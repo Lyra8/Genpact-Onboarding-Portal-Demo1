@@ -68,7 +68,9 @@ function ContactDirectory({ contacts, isLoading, error }) {
 
                 <div className="contact-actions">
                   <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                  <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                  {contact.phone && (
+                    <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+                  )}
                 </div>
               </div>
             </article>

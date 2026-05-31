@@ -140,6 +140,7 @@ INSERT INTO contacts (name, role, department, email, phone, is_primary, display_
 ('Rajesh Kumar',   'HR Support', 'Human Resources — APAC',    'rajesh.kumar@genpact.com',    '+91-9876543211', FALSE, 2),
 ('Anita Desai',    'IT Support', 'Global IT Service Desk',    'anita.desai@genpact.com',     '+91-9876543212', TRUE,  3),
 ('Michael Chen',   'Manager',    'Digital Transformation',    'michael.chen@genpact.com',    '+65-91234567',   FALSE, 4),
-('Sneha Patel',    'Buddy',      'Digital Transformation',    'sneha.patel@genpact.com',     '+91-9876543214', FALSE, 5);
+('Sneha Patel',    'Buddy',      'Digital Transformation',    'sneha.patel@genpact.com',              '+91-9876543214', FALSE, 5),
+('Edona Xhemajli', 'HR Support', 'Human Resources — APAC',     'edona.xhemajli1234@genpact.com', '+91-9876543221', FALSE, 6);
 
 COMMIT;
