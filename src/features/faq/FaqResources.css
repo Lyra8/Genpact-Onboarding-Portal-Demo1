@@ -1,0 +1,138 @@
+.faq-section {
+  grid-column: span 1;
+}
+
+.faq-subheading {
+  margin: 0 0 12px;
+  color: #364C84;
+  font-size: 1.05rem;
+}
+
+.faq-list {
+  margin: 0;
+  padding: 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid #95B1EE;
+}
+
+.faq-item:last-child {
+  border-bottom: 0;
+}
+
+.faq-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  padding: 14px 0;
+  background: none;
+  color: #364C84;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.faq-toggle:hover {
+  color: #95B1EE;
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  color: #8B99C0;
+  font-size: 0.7rem;
+}
+
+.faq-answer {
+  margin: 0;
+  padding: 0 0 14px;
+}
+
+.faq-answer p {
+  margin: 0;
+  color: #5B6DA0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.faq-divider {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid #95B1EE;
+}
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.policy-card {
+  border: 1px solid #95B1EE;
+  border-radius: 10px;
+  padding: 16px;
+  background: rgba(149, 177, 238, 0.06);
+  transition: box-shadow 200ms ease;
+}
+
+.policy-card:hover {
+  box-shadow: 0 4px 16px rgba(54, 76, 132, 0.08);
+}
+
+.policy-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.policy-card h4 {
+  margin: 0;
+  color: #364C84;
+  font-size: 0.92rem;
+}
+
+.policy-category {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: rgba(149, 177, 238, 0.18);
+  color: #364C84;
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.policy-card p {
+  margin: 0 0 10px;
+  color: #5B6DA0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.policy-link {
+  display: inline-flex;
+  color: #364C84;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.policy-link:hover {
+  color: #95B1EE;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .faq-section {
+    grid-column: span 1;
+  }
+}

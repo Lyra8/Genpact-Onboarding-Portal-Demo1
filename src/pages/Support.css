@@ -1,0 +1,14 @@
+.support-page {
+  display: grid;
+  gap: 24px;
+}
+
+.support-page .contacts-section,
+.support-page .faq-section {
+  grid-column: span 1;
+  border: 1px solid #95B1EE;
+  border-radius: 14px;
+  padding: 28px 32px;
+  background: #FFFDF5;
+  box-shadow: 0 2px 12px rgba(54, 76, 132, 0.06);
+}

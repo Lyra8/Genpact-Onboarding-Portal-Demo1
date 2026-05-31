@@ -84,6 +84,41 @@ export const mockCourses = [
   }
 ];
 
+export const mockProgress = [
+  {
+    id: "mock-progress-1",
+    course_id: "mock-course-1",
+    intern_id: "00000000-0000-0000-0000-000000000001",
+    status: "Not Started",
+    created_at: "2026-05-31T00:00:00Z",
+    updated_at: "2026-05-31T00:00:00Z"
+  },
+  {
+    id: "mock-progress-2",
+    course_id: "mock-course-2",
+    intern_id: "00000000-0000-0000-0000-000000000001",
+    status: "Not Started",
+    created_at: "2026-05-31T00:00:00Z",
+    updated_at: "2026-05-31T00:00:00Z"
+  },
+  {
+    id: "mock-progress-3",
+    course_id: "mock-course-3",
+    intern_id: "00000000-0000-0000-0000-000000000001",
+    status: "Not Started",
+    created_at: "2026-05-31T00:00:00Z",
+    updated_at: "2026-05-31T00:00:00Z"
+  },
+  {
+    id: "mock-progress-4",
+    course_id: "mock-course-4",
+    intern_id: "00000000-0000-0000-0000-000000000001",
+    status: "Not Started",
+    created_at: "2026-05-31T00:00:00Z",
+    updated_at: "2026-05-31T00:00:00Z"
+  }
+];
+
 export const mockContacts = [
   {
     id: "mock-contact-1",
