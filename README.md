@@ -1,4 +1,4 @@
-# Genpact-Onboarding-Portal-Demo1
+# Genpact-Onboarding-Portal
 A central hub that gives new interns all the resources they need for a smooth start
 
 ## Sprint 1 Frontend Scope
