@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 import { fetchCourses, fetchProgress } from "../api/onboardingApi";
 import TrainingDashboard from "../features/training/TrainingDashboard";
 
-const DEFAULT_INTERN_ID = "00000000-0000-0000-0000-000000000001";
-
-function Courses() {
+function Courses({ user }) {
   const [courses, setCourses] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const internId = user?.id;
 
   useEffect(() => {
     async function load() {
+      if (!internId) {
+        setError("Unable to identify logged-in intern.");
+        setLoading(false);
+        return;
+      }
+
       try {
         const [c, p] = await Promise.all([
           fetchCourses(),
-          fetchProgress(DEFAULT_INTERN_ID),
+          fetchProgress(internId),
         ]);
         setCourses(Array.isArray(c) ? c : []);
         setProgress(Array.isArray(p) ? p : []);
@@ -29,7 +34,7 @@ function Courses() {
     }
 
     load();
-  }, []);
+  }, [internId]);
 
   return (
     <TrainingDashboard
@@ -37,6 +42,7 @@ function Courses() {
       progress={progress}
       isLoading={loading}
       error={error}
+      internId={internId}
     />
   );
 }

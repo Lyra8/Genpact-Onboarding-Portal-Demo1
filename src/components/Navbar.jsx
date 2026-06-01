@@ -3,19 +3,40 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const NAV_ITEMS = [
-  { to: "/", label: "Dashboard", icon: "◉" },
-  { to: "/courses", label: "Courses", icon: "◈" },
-  { to: "/tools", label: "Tools", icon: "◇" },
-  { to: "/support", label: "Support", icon: "◉" },
+  {
+    to: "/manager-dashboard",
+    label: "Manager Dashboard",
+    icon: "M",
+    roles: ["Manager"],
+  },
+  { to: "/announcements", label: "Announcements", icon: "A" },
+  { to: "/manager/users", label: "Users", icon: "U", roles: ["Manager"] },
+  {
+    to: "/manager/support",
+    label: "Manager Support",
+    icon: "H",
+    roles: ["Manager"],
+  },
+  { to: "/manager/profile", label: "Profile", icon: "P", roles: ["Manager"] },
+  { to: "/courses", label: "Courses", icon: "C", roles: ["Intern"] },
+  { to: "/tools", label: "Tools", icon: "T", roles: ["Intern"] },
+  { to: "/support", label: "Support", icon: "S", roles: ["Intern"] },
 ];
 
-function Navbar() {
+function Navbar({ user, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const visibleItems = NAV_ITEMS.filter(
+    (item) => !item.roles || item.roles.includes(user?.role),
+  );
 
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <NavLink to="/" className="navbar-brand" onClick={() => setMenuOpen(false)}>
+        <NavLink
+          to="/"
+          className="navbar-brand"
+          onClick={() => setMenuOpen(false)}
+        >
           <span className="brand-icon">G</span>
           <span className="brand-text">
             <strong>Genpact</strong>
@@ -33,11 +54,11 @@ function Navbar() {
         </button>
 
         <ul className={`navbar-links ${menuOpen ? "navbar-links--open" : ""}`}>
-          {NAV_ITEMS.map((item) => (
+          {visibleItems.map((item) => (
             <li key={item.to}>
               <NavLink
                 to={item.to}
-                end={item.to === "/"}
+                end
                 className={({ isActive }) =>
                   `navbar-link ${isActive ? "navbar-link--active" : ""}`
                 }
@@ -48,6 +69,18 @@ function Navbar() {
               </NavLink>
             </li>
           ))}
+          <li className="navbar-user">
+            <span>{user?.role}</span>
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                onLogout();
+              }}
+            >
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
     </nav>

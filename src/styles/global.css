@@ -1,16 +1,20 @@
 :root {
-  --dark-blue: #364C84;
-  --light-blue: #95B1EE;
-  --light-green: #E7F1A8;
-  --base-white: #FFFDF5;
-  --text-primary: #364C84;
-  --text-secondary: #5B6DA0;
-  --text-muted: #8B99C0;
-  --card-bg: #FFFDF5;
-  --card-border: #95B1EE;
-  --accent: #E7F1A8;
-  --success: #E7F1A8;
-  color: var(--text-primary);
+  --brand-blue: #0057b8;
+  --brand-green: #16a34a;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --page-bg: #eef2f6;
+  --border-color: #d9e2ec;
+  --text-strong: #162033;
+  --text-muted: #607085;
+  --card-bg: var(--surface);
+  --card-border: var(--border-color);
+  --text-primary: var(--text-strong);
+  --text-secondary: var(--text-muted);
+  --base-white: #ffffff;
+  --dark-blue: var(--brand-blue);
+  --light-blue: var(--brand-blue);
+  color: var(--text-strong);
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   background: var(--base-white);
 }
@@ -31,7 +35,8 @@ input {
   transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 
-select {
+select,
+textarea {
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
@@ -182,6 +187,29 @@ select {
   border-color: var(--dark-blue);
   box-shadow: 0 0 0 3px rgba(54, 76, 132, 0.12);
   outline: none;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: var(--text-strong);
+  font: inherit;
+  line-height: 1.5;
+}
+
+textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.12);
+  outline: none;
+}
+
+.announcement-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .section-message {

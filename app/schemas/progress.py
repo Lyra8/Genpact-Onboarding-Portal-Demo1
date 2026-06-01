@@ -26,3 +26,18 @@ class ProgressUpdate(BaseModel):
 class ProgressListResponse(BaseModel):
     data: list[ProgressRead]
     count: int
+
+
+class ManagerProgressRead(BaseModel):
+    intern_id: uuid.UUID
+    intern_name: str
+    intern_email: str | None = None
+    course_id: uuid.UUID
+    course_title: str
+    status: ProgressStatus
+    updated_at: datetime
+
+
+class ManagerProgressResponse(BaseModel):
+    data: list[ManagerProgressRead]
+    count: int

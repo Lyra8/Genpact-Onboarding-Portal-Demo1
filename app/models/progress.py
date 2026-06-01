@@ -21,7 +21,7 @@ class CourseProgress(SQLModel, table=True):
     course_id: uuid.UUID = Field(
         sa_column=Column(ForeignKey("courses.id", ondelete="CASCADE")),
     )
-    intern_id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    intern_id: uuid.UUID = Field()
     status: ProgressStatus = Field(
         default=ProgressStatus.NOT_STARTED,
         sa_column=Column(
@@ -30,3 +30,4 @@ class CourseProgress(SQLModel, table=True):
     )
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+

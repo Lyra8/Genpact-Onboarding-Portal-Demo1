@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchContacts } from "../api/onboardingApi";
 import ContactDirectory from "../features/contacts/ContactDirectory";
-import FaqResources from "../features/faq/FaqResources";
 import "./Support.css";
 
 function Support() {
@@ -16,7 +15,6 @@ function Support() {
         setContacts(Array.isArray(data) ? data : []);
       } catch (err) {
         setError(err.message || "Unable to load contacts.");
-        setContacts([]);
       } finally {
         setLoading(false);
       }
@@ -27,14 +25,10 @@ function Support() {
 
   return (
     <div className="support-page">
-      <ContactDirectory
-        contacts={contacts}
-        isLoading={loading}
-        error={error}
-      />
-      <FaqResources />
+      <ContactDirectory contacts={contacts} isLoading={loading} error={error} />
     </div>
   );
 }
 
 export default Support;
+

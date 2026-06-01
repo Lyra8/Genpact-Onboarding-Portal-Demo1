@@ -2,8 +2,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #364C84;
-  box-shadow: 0 2px 16px rgba(54, 76, 132, 0.35);
+  background: var(--brand-blue);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.18);
 }
 
 .navbar-inner {
@@ -20,7 +20,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #FFFDF5;
+  color: #ffffff;
 }
 
 .brand-icon {
@@ -29,8 +29,8 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #95B1EE;
-  color: #364C84;
+  background: #ffffff;
+  color: var(--brand-blue);
   font-size: 1.1rem;
   font-weight: 800;
 }
@@ -75,7 +75,7 @@
   width: 20px;
   height: 2px;
   border-radius: 2px;
-  background: #FFFDF5;
+  background: #ffffff;
   transition: transform 240ms ease, opacity 240ms ease;
 }
 
@@ -125,7 +125,7 @@
   gap: 6px;
   padding: 8px 16px;
   border-radius: 8px;
-  color: rgba(255, 253, 245, 0.82);
+  color: rgba(255, 255, 255, 0.86);
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
@@ -133,22 +133,51 @@
 }
 
 .navbar-link:hover {
-  background: rgba(149, 177, 238, 0.18);
-  color: #FFFDF5;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
 }
 
 .navbar-link--active {
-  background: #E7F1A8;
-  color: #364C84;
+  background: #ffffff;
+  color: var(--brand-blue);
 }
 
 .navbar-link--active:hover {
-  background: #dce898;
-  color: #364C84;
+  background: #eef6ff;
+  color: var(--brand-blue);
 }
 
 .nav-icon {
   font-size: 0.75rem;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+.navbar-user span {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.navbar-user button {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.navbar-user button:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 @media (max-width: 760px) {
@@ -164,8 +193,8 @@
     flex-direction: column;
     gap: 2px;
     padding: 8px 16px 16px;
-    background: #364C84;
-    box-shadow: 0 8px 24px rgba(54, 76, 132, 0.4);
+    background: var(--brand-blue);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.22);
     transform: translateY(-120%);
     opacity: 0;
     pointer-events: none;
@@ -182,5 +211,12 @@
     width: 100%;
     padding: 12px 16px;
     border-radius: 6px;
+  }
+
+  .navbar-user {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+    padding: 8px 0 0;
   }
 }

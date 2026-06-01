@@ -14,7 +14,6 @@ function Tools() {
         setTools(Array.isArray(data) ? data : []);
       } catch (err) {
         setError(err.message || "Unable to load tools.");
-        setTools([]);
       } finally {
         setLoading(false);
       }
@@ -27,3 +26,4 @@ function Tools() {
 }
 
 export default Tools;
+
