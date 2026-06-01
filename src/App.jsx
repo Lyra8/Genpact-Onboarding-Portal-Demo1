@@ -1,90 +1,128 @@
-import { useEffect, useState } from "react";
-import { fetchContacts, fetchCourses, fetchTools } from "./api/onboardingApi";
-import ContactDirectory from "./features/contacts/ContactDirectory";
-import TrainingDashboard from "./features/training/TrainingDashboard";
-import ToolsList from "./features/tools/ToolsList";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import Announcements from "./pages/Announcements";
+import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Courses from "./pages/Courses";
+import LoginPage from "./pages/LoginPage";
+import ManagerSupport from "./pages/ManagerSupport";
+import ManagerProfile from "./pages/ManagerProfile";
+import ManagerUsers from "./pages/ManagerUsers";
+import Tools from "./pages/Tools";
+import Support from "./pages/Support";
+import SignUpPage from "./pages/SignUpPage";
+import { clearAuth, getStoredUser } from "./api/onboardingApi";
+
+function ProtectedRoute({ user, allowedRoles, children }) {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return (
+      <Navigate
+        to={user.role === "Manager" ? "/manager-dashboard" : "/courses"}
+        replace
+      />
+    );
+  }
+  return children;
+}
+
+function HomeRedirect({ user }) {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return (
+    <Navigate
+      to={user.role === "Manager" ? "/manager-dashboard" : "/courses"}
+      replace
+    />
+  );
+}
 
 function App() {
-  const [tools, setTools] = useState([]);
-  const [courses, setCourses] = useState([]);
-  const [contacts, setContacts] = useState([]);
-  const [loadingState, setLoadingState] = useState({
-    tools: true,
-    courses: true,
-    contacts: true
-  });
-  const [errorState, setErrorState] = useState({
-    tools: "",
-    courses: "",
-    contacts: ""
-  });
+  const [user, setUser] = useState(() => getStoredUser());
 
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadOnboardingData() {
-      const requests = [
-        { key: "tools", load: fetchTools, update: setTools },
-        { key: "courses", load: fetchCourses, update: setCourses },
-        { key: "contacts", load: fetchContacts, update: setContacts },
-      ];
-
-      const results = await Promise.allSettled(
-        requests.map(async ({ key, load, update }) => {
-          const data = await load();
-          update(Array.isArray(data) ? data : []);
-        } catch (error) {
-          console.warn(`Unable to load ${key}. Showing an empty section.`, error);
-          setErrorState((current) => ({
-            ...current,
-            [key]: error.message || "Unable to load this section."
-          }));
-          update([]);
-        } finally {
-          setLoadingState((current) => ({ ...current, [key]: false }));
-        }
-      }
-    }
-
-    loadOnboardingData();
-    return () => { cancelled = true; };
-  }, []);
+  function handleLogout() {
+    clearAuth();
+    setUser(null);
+  }
 
   return (
-    <main className="app-shell">
-      <header className="portal-header">
-        <div>
-          <p className="eyebrow">Intern Onboarding Portal</p>
-          <h1>Welcome to Genpact</h1>
-          <p className="header-copy">
-            Your Week 1 launch hub for required tools, mandatory learning, and
-            the people who can help you get started.
-          </p>
-        </div>
-        <div className="header-status" aria-label="Sprint status">
-          <span>Sprint 1 UI</span>
-          <strong>Demo Ready</strong>
-        </div>
-      </header>
-
-      <div className="dashboard-grid">
-        <ToolsList
-          tools={tools}
-          isLoading={loadingState.tools}
-          error={errorState.tools}
-        />
-        <TrainingDashboard
-          courses={courses}
-          isLoading={loadingState.courses}
-          error={errorState.courses}
-        />
-        <ContactDirectory
-          contacts={contacts}
-          isLoading={loadingState.contacts}
-          error={errorState.contacts}
-        />
-      </div>
-    </main>
+    <BrowserRouter>
+      {user && <Navbar user={user} onLogout={handleLogout} />}
+      <main className="app-shell">
+        <Routes>
+          <Route path="/login" element={<LoginPage onLogin={setUser} />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/" element={<HomeRedirect user={user} />} />
+          <Route
+            path="/manager-dashboard"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Manager"]}>
+                <Dashboard user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manager/support"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Manager"]}>
+                <ManagerSupport />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manager/users"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Manager"]}>
+                <ManagerUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manager/profile"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Manager"]}>
+                <ManagerProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/announcements"
+            element={
+              <ProtectedRoute user={user}>
+                <Announcements user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/courses"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Intern"]}>
+                <Courses user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tools"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Intern"]}>
+                <Tools />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/support"
+            element={
+              <ProtectedRoute user={user} allowedRoles={["Intern"]}>
+                <Support />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
