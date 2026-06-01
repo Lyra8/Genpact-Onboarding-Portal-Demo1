@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generator
 
-from sqlalchemy import Engine
+from sqlalchemy import Engine, text
 from sqlmodel import Session, SQLModel, create_engine
 
 from app.config import get_settings
@@ -31,3 +31,26 @@ def get_session() -> Generator[Session, None, None]:
 
 def init_db() -> None:
     SQLModel.metadata.create_all(_get_engine())
+    _ensure_auth_schema()
+
+
+def _ensure_auth_schema() -> None:
+    engine = _get_engine()
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                """
+                ALTER TABLE users
+                ADD COLUMN IF NOT EXISTS manager_id UUID REFERENCES users(id) ON DELETE SET NULL
+                """
+            )
+        )
+        connection.execute(
+            text(
+                """
+                UPDATE users
+                SET manager_id = (SELECT id FROM users WHERE role = 'Manager' ORDER BY email LIMIT 1)
+                WHERE role = 'Intern' AND manager_id IS NULL
+                """
+            )
+        )
