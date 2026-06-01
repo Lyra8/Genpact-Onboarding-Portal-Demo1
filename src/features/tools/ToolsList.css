@@ -1,5 +1,10 @@
 .tools-section {
-  grid-column: span 6;
+  grid-column: span 1;
+  border: 1px solid #95B1EE;
+  border-radius: 14px;
+  padding: 28px 32px;
+  background: #FFFDF5;
+  box-shadow: 0 2px 12px rgba(54, 76, 132, 0.06);
 }
 
 .tools-list {
@@ -9,10 +14,16 @@
 }
 
 .tool-item {
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  background: var(--surface-muted);
+  border: 1px solid #95B1EE;
+  border-radius: 10px;
+  padding: 18px;
+  background: rgba(149, 177, 238, 0.06);
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.tool-item:hover {
+  border-color: #95B1EE;
+  box-shadow: 0 4px 16px rgba(54, 76, 132, 0.08);
 }
 
 .tool-main {
@@ -24,13 +35,13 @@
 
 .tool-main h3 {
   margin: 0 0 6px;
-  color: var(--text-strong);
+  color: #364C84;
   font-size: 1rem;
 }
 
 .tool-main p {
   margin: 0;
-  color: var(--text-muted);
+  color: #5B6DA0;
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -40,22 +51,23 @@
   flex-wrap: wrap;
   gap: 10px 16px;
   margin-top: 14px;
-  color: var(--text-muted);
+  color: #5B6DA0;
   font-size: 0.86rem;
 }
 
 .tool-meta a {
-  color: var(--brand-blue);
+  color: #364C84;
   font-weight: 700;
   text-decoration: none;
 }
 
 .tool-meta a:hover {
+  color: #95B1EE;
   text-decoration: underline;
 }
 
 @media (max-width: 900px) {
   .tools-section {
-    grid-column: span 12;
+    grid-column: span 1;
   }
 }

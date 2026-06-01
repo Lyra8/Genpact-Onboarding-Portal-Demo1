@@ -1,4 +1,4 @@
-import { mockContacts, mockCourses, mockTools } from "../data/mockData";
+import { mockContacts, mockCourses, mockProgress, mockTools } from "../data/mockData";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
@@ -20,7 +20,7 @@ function safeFallback(endpoint, fallbackData, reason) {
 
 async function getFromApi(endpoint, fallbackData) {
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`);
+    const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
 
     if (!response.ok) {
       return safeFallback(
@@ -261,7 +261,7 @@ export async function updateProgress(courseId, status, internId) {
 
 export async function fetchHealth() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/health`);
+    const response = await fetchWithTimeout(`${API_BASE_URL}/api/health`);
 
     if (!response.ok) {
       console.warn(`Health check failed with status ${response.status}`);
