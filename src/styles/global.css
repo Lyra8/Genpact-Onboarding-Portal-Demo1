@@ -7,6 +7,13 @@
   --border-color: #d9e2ec;
   --text-strong: #162033;
   --text-muted: #607085;
+  --card-bg: var(--surface);
+  --card-border: var(--border-color);
+  --text-primary: var(--text-strong);
+  --text-secondary: var(--text-muted);
+  --base-white: #ffffff;
+  --dark-blue: var(--brand-blue);
+  --light-blue: var(--brand-blue);
   color: var(--text-strong);
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   background: var(--page-bg);
@@ -28,7 +35,8 @@ input {
   transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 
-select {
+select,
+textarea {
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
@@ -179,6 +187,29 @@ select {
   border-color: var(--brand-blue);
   box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.12);
   outline: none;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: var(--text-strong);
+  font: inherit;
+  line-height: 1.5;
+}
+
+textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.12);
+  outline: none;
+}
+
+.announcement-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .section-message {
